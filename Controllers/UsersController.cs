@@ -10,43 +10,65 @@ namespace ApiDevBP.Controllers
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly  SQLiteConnection _db;
+        private readonly UserService _userService;
+
+        //private readonly  SQLiteConnection _db;
         
-        private readonly ILogger<UsersController> _logger;
+        //private readonly ILogger<UsersController> _logger;
 
-        public UsersController(ILogger<UsersController> logger)
+        public UsersController(ILogger<UsersController> logger, UserService userService)
         {
-            _logger = logger;
-            string localDb = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "localDb");
-            _db = new SQLiteConnection(localDb);
-            _db.CreateTable<UserEntity>();
+            //_logger = logger;
+            //string localDb = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "localDb");
+           // _db = new SQLiteConnection(localDb);
+            //_db.CreateTable<UserEntity>();
+            _userService = userService;
+
         }
 
-        [HttpPost]
-        public async Task<IActionResult> SaveUser(UserModel user)
+    [HttpGet("{userId}")]
+    public IActionResult SearchUser(int userId)
+    {
+        var user = _userService.SearchUser(userId);
+        if (user != null)
         {
-            var result = _db.Insert(new UserEntity()
-            {
-                Name = user.Name,
-                Lastname = user.Lastname
-            });
-            return Ok(result > 0);
+            return Ok(user);
         }
-
-        [HttpGet]
-        public async Task<IActionResult> GetUsers()
-        {
-            var users = _db.Query<UserEntity>($"Select * from Users");
-            if (users != null)
-            {
-                return Ok(users.Select(x=> new UserModel()
-                {
-                    Name = x.Name,
-                    Lastname = x.Lastname
-                }));
-            }
-            return NotFound();
-        }
-
+        return NotFound($"Usuario con ID {userId} no encontrado.");
     }
+
+    [HttpPost]
+    public IActionResult SaveUser(UserModel user)
+    {
+        var result = _userService.SaveUser(user);
+        return Ok(result);
+    }
+
+    [HttpGet]
+    public IActionResult GetUsers()
+    {
+        var users = _userService.GetUsers();
+        return Ok(users);
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult UpdateUser(int id, UserModel updatedUser)
+    {
+        var result = _userService.UpdateUser(id, updatedUser);
+        if(result == false){
+            return NotFound($"Usuario con ID {id} no encontrado para poder ser actualizado.");
+        }
+        return Ok(result);
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult DeleteUser(int id)
+    {
+        var result = _userService.DeleteUser(id);
+        if(result == false){
+            return NotFound($"Usuario con ID {id} no encontrado para poder ser eliminado.");
+        }
+        return Ok(result);
+    }
+}
 }

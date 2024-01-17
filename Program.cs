@@ -1,11 +1,43 @@
+using System.Reflection;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using SQLite;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
+
+
+//Log.Information("aguanteee river");
+
+
+//estooo agregueeeee y el paquete capaz no funcaaaaaa
+builder.Services.AddLogging(loggingBuilder =>
+        {
+            loggingBuilder.ClearProviders(); // Limpia otros proveedores de logging
+            loggingBuilder.AddSerilog(); // Agrega Serilog como proveedor
+        });
+
+
+builder.Services.AddScoped<UserService>();
+
+
+builder.Services.AddScoped<SQLiteConnection>(_ =>
+{
+    // Configura y retorna la instancia de SQLiteConnection
+    string localDb = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "localDb");
+    return new SQLiteConnection(localDb);
+});
+
+
+/*
+ // Registra la clase DbOptions para inyección de dependencias
+builder.Services.AddScoped(provider => provider.GetRequiredService<IOptionsSnapshot<DbOption>>().Value);
+// Configuración de DbOptions desde appsettings.json
+builder.Services.Configure<DbOption>(builder.Configuration.GetSection("DbOptions"));
+*/
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
