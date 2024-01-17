@@ -1,6 +1,7 @@
 using System.Reflection;
 using ApiDevBP.Entities;
 using ApiDevBP.Models;
+using Microsoft.Extensions.Options;
 using SQLite;
 
 public class UserService
@@ -8,11 +9,23 @@ public class UserService
     private readonly SQLiteConnection _db;
     private readonly ILogger<UserService> _logger;
 
-    public UserService(SQLiteConnection db, ILogger<UserService> logger) 
+    private readonly DbOptions _dbOptions;
+
+    public UserService(IOptions<DbOptions> dbOptions, ILogger<UserService> logger) 
     {
-        _db = db;
-        _db.CreateTable<UserEntity>();
+        //_db = db;
+        //_db.CreateTable<UserEntity>();
+        
         _logger = logger;
+
+        _dbOptions = dbOptions.Value;
+
+        //var localDb = Path.Combine(dbOptions.Value.ConnectionString, "localDb.db");
+        //_db = new SQLiteConnection(localDb);
+
+        logger.LogWarning("string de conexion: "+_dbOptions.ConnectionString);
+        _db = new SQLiteConnection(_dbOptions.ConnectionString);
+        _db.CreateTable<UserEntity>();
     }
 
     public bool SaveUser(UserModel user)

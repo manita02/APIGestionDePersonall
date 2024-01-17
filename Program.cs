@@ -1,4 +1,5 @@
 using System.Reflection;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using SQLite;
@@ -23,21 +24,26 @@ builder.Services.AddLogging(loggingBuilder =>
 
 builder.Services.AddScoped<UserService>();
 
-
+/*
 builder.Services.AddScoped<SQLiteConnection>(_ =>
 {
     // Configura y retorna la instancia de SQLiteConnection
     string localDb = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "localDb");
     return new SQLiteConnection(localDb);
 });
-
-
-/*
- // Registra la clase DbOptions para inyección de dependencias
-builder.Services.AddScoped(provider => provider.GetRequiredService<IOptionsSnapshot<DbOption>>().Value);
-// Configuración de DbOptions desde appsettings.json
-builder.Services.Configure<DbOption>(builder.Configuration.GetSection("DbOptions"));
 */
+
+
+
+
+//builder.Services.Configure<DbOptions>(builder.Configuration.GetSection("DbOptions"));
+//builder.Services.Configure<DbOptions>(builder.Configuration.GetSection("ConnectionStrings"));
+
+ // Registra la clase DbOptions para inyección de dependencias
+builder.Services.AddScoped(provider => provider.GetRequiredService<IOptionsSnapshot<DbOptions>>().Value);
+// Configuración de DbOptions desde appsettings.json
+builder.Services.Configure<DbOptions>(builder.Configuration.GetSection("DbOptions"));
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
