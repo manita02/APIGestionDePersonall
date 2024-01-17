@@ -4,5 +4,40 @@
         <name>ApiDevBP</name>
     </assembly>
     <members>
+        <member name="M:ApiDevBP.Controllers.UsersController.SearchUser(System.Int32)">
+            <summary>
+            Obtiene un usuario por su ID.
+            </summary>
+            <param name="userId">ID del usuario.</param>
+            <returns>Datos del usuario.</returns>
+        </member>
+        <member name="M:ApiDevBP.Controllers.UsersController.SaveUser(ApiDevBP.Models.UserModel)">
+            <summary>
+            Guarda un nuevo usuario.
+            </summary>
+            <param name="user">Datos del nuevo usuario.</param>
+            <returns>Resultado de la operación.</returns>
+        </member>
+        <member name="M:ApiDevBP.Controllers.UsersController.GetUsers">
+            <summary>
+            Obtiene todos los usuarios.
+            </summary>
+            <returns>Lista de usuarios.</returns>
+        </member>
+        <member name="M:ApiDevBP.Controllers.UsersController.UpdateUser(System.Int32,ApiDevBP.Models.UserModel)">
+            <summary>
+            Actualiza un usuario existente.
+            </summary>
+            <param name="id">ID del usuario a actualizar.</param>
+            <param name="updatedUser">Datos actualizados del usuario.</param>
+            <returns>Resultado de la operación.</returns>
+        </member>
+        <member name="M:ApiDevBP.Controllers.UsersController.DeleteUser(System.Int32)">
+            <summary>
+            Elimina un usuario por su ID.
+            </summary>
+            <param name="id">ID del usuario a eliminar.</param>
+            <returns>Resultado de la operación.</returns>
+        </member>
     </members>
 </doc>
