@@ -11,14 +11,11 @@ Log.Logger = new LoggerConfiguration()
     .CreateBootstrapLogger();
 
 
-//Log.Information("aguanteee river");
 
-
-//estooo agregueeeee y el paquete capaz no funcaaaaaa
 builder.Services.AddLogging(loggingBuilder =>
         {
-            loggingBuilder.ClearProviders(); // Limpia otros proveedores de logging
-            loggingBuilder.AddSerilog(); // Agrega Serilog como proveedor
+            loggingBuilder.ClearProviders(); 
+            loggingBuilder.AddSerilog(); 
         });
 
 
@@ -36,10 +33,9 @@ builder.Services.AddScoped<SQLiteConnection>(_ =>
 
 
 
-//builder.Services.Configure<DbOptions>(builder.Configuration.GetSection("DbOptions"));
-//builder.Services.Configure<DbOptions>(builder.Configuration.GetSection("ConnectionStrings"));
 
- // Registra la clase DbOptions para inyección de dependencias
+
+// Registra la clase DbOptions para inyección de dependencias
 builder.Services.AddScoped(provider => provider.GetRequiredService<IOptionsSnapshot<DbOptions>>().Value);
 // Configuración de DbOptions desde appsettings.json
 builder.Services.Configure<DbOptions>(builder.Configuration.GetSection("DbOptions"));

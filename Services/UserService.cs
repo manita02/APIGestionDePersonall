@@ -13,17 +13,10 @@ public class UserService
 
     public UserService(IOptions<DbOptions> dbOptions, ILogger<UserService> logger) 
     {
-        //_db = db;
-        //_db.CreateTable<UserEntity>();
-        
         _logger = logger;
 
         _dbOptions = dbOptions.Value;
-
-        //var localDb = Path.Combine(dbOptions.Value.ConnectionString, "localDb.db");
-        //_db = new SQLiteConnection(localDb);
-
-        logger.LogWarning("string de conexion: "+_dbOptions.ConnectionString);
+        //logger.LogWarning("string de conexion: "+_dbOptions.ConnectionString);
         _db = new SQLiteConnection(_dbOptions.ConnectionString);
         _db.CreateTable<UserEntity>();
     }
@@ -100,7 +93,7 @@ public class UserService
             if (userToDelete == null)
             {
                  _logger.LogError("No se ha encontrado el usuario con el id: "+ id);
-                return false; // Usuario no encontrado
+                return false; 
             }
 
             var result = _db.Delete(userToDelete);
@@ -129,7 +122,7 @@ public class UserService
                 };
             }
             _logger.LogError("Error al obtener usuario por ID {UserId}", userId);
-            return null; // Usuario no encontrado
+            return null; 
         }
         catch (Exception ex)
         {
