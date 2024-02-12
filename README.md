@@ -1,6 +1,8 @@
 <h1 align="center">🏢API Gestión del Personal🧑‍💼</h1>
 <section align="center">
   <img src="https://imgfz.com/i/R72Wx16.png" alt="api">
+</section>
+<section align="center">
   <img src="https://img.shields.io/badge/STATE-FINISHED-green" alt="Estado del Proyecto">
 </section>
 
@@ -22,6 +24,7 @@
 ## Sobre API Gestión del Personal :post_office::man_office_worker:
 <p align="justify">
 Prueba técnica🔧 realizada para la empresa BeProactive para el puesto de trabajo <i>Programador Full Stack Sr, Ssr</i>. La práctica consistía en lo siguiente: 
+
 <br><i><b>Situación</b></i>
 <br>Una empresa necesita un servicio en el que pueda realizar la gestión del personal. Éste debe permitirle a los usuarios la opción de consultar, crear, modificar y borrar usuarios mediante diferentes endpoints. 
 Actualmente cuentan con una API para leer información y crear nuevos usuarios. 
@@ -79,7 +82,7 @@ Actualmente cuentan con una API para leer información y crear nuevos usuarios.
     <section align="center">
     <img src="https://imgfz.com/i/8m2dDLh.png" alt="run">
     </section>
-  - Copiar el enlace generado🔗, pegarlo en el buscador🔎 de su navegador de Internet🌐, y añadirle " /swagger " 
+  - Copiar el enlace generado🔗, pegarlo en el buscador🔎 de su navegador de Internet🌐, y añadirle <b><i> /swagger </i></b> 
     ```bash
     http://localhost:5035/swagger
     ```
